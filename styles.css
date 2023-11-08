@@ -1,0 +1,36 @@
+.character {
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+  position: absolute;
+  top: 50%; /* Centers the character vertically */
+  transform: translateY(-50%); /* Align center to the position */
+  transition: transform 0.1s; /* Smooth transition for movement */
+}
+/* Basic styling */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.screen {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen.active {
+  display: flex;
+}
+
+button.nav-button {
+  margin: 10px;
+  padding: 10px 20px;
+}
