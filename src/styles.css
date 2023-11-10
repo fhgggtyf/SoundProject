@@ -7,6 +7,15 @@
   transform: translateY(-50%); /* Align center to the position */
   transition: transform 0.1s; /* Smooth transition for movement */
 }
+
+#character {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #007bff; /* Example color */
+  border-radius: 50%; /* Makes it circular */
+  transition: left 0.2s ease; /* Smooth movement */
+}
 /* Basic styling */
 body, html {
   height: 100%;
