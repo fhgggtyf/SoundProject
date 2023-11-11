@@ -10,10 +10,9 @@
 
 #character {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: #007bff; /* Example color */
-  border-radius: 50%; /* Makes it circular */
+  width: 200px;
+  /* background-color: #007bff;  Example color */
+  /* border-radius: 50%; Makes it circular */ 
   transition: left 0.2s ease; /* Smooth movement */
 }
 /* Basic styling */
@@ -31,12 +30,19 @@ body, html {
   height: 100%;
   width: 100%;
   position: absolute;
+  background-color: black;
   top: 0;
   left: 0;
 }
 
 .screen.active {
   display: flex;
+}
+
+.img-element{
+  display: block;
+  position: absolute;
+  
 }
 
 button.nav-button {
