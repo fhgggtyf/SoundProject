@@ -15,7 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   //sounds
   const intro = new Audio('../assets/sounds/INTRO.wav');
   const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
-  const alertAudio3 = new Audio('../assets/sounds/INTRO.wav');
+  const hall1 = new Audio('../assets/sounds/ENTER_HALL.wav');
+  const door1 = new Audio('../assets/sounds/DOOR1.wav');
+  const door2 = new Audio('../assets/sounds/DOOR2.wav');
+  //const door1 = new Audio('../assets/sounds/ENTER_HALL.wav');
+  const end = new Audio('../assets/sounds/END.wav');
   const backgroundAudio = new Audio('../assets/sounds/INTRO.wav');
   let isAudioPlaying=false;
 
@@ -182,6 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
       currentScreen = nextScreen;
     }
     if(currentScreen=='hallway')
-      portrait.play()
+      hall1.play()
   }
 });
