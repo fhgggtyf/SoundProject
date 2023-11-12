@@ -60,16 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else if (keyName === 'ArrowUp' && screenBounds[currentScreen].right == 'exit') {
       if (parseInt(character.style.left) <= 850) {
-        sessionStorage.setItem("current",currentScreen);// test code should be commented out
+        sessionStorage.setItem("current",currentScreen);
         sessionStorage.setItem("currentX",characterPos.toString());
-        console.log(sessionStorage.getItem("current"))
+        console.log(sessionStorage.getItem("current"))// test code should be commented out
         console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up1;
       }
       else {
-        sessionStorage.setItem("current",currentScreen);// test code should be commented out
+        sessionStorage.setItem("current",currentScreen);
         sessionStorage.setItem("currentX",characterPos.toString())
-        console.log(sessionStorage.getItem("current"))
+        console.log(sessionStorage.getItem("current"))// test code should be commented out
         console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up2;
       }
