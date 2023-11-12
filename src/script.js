@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let currentScreen = sessionStorage.getItem("current");
+  let currentScreen = sessionStorage.getItem("current"); // get the current page
+
+  // if it is empty then give it initial value, this value is used only in cover so it is determined.
   if (!currentScreen) {
     sessionStorage.setItem('current', 'start-screen');
     currentScreen = sessionStorage.getItem("current");
@@ -9,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const character = document.createElement('img');
   character.id = 'character';
-  // character.style.left = '1300px';
+
+  // same, getting the stored x value (in string)
   let xCord=sessionStorage.getItem("currentX");
   if (!xCord) {
     sessionStorage.setItem('currentX', '1300');
@@ -31,10 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   navigateTo(currentScreen);
   character.style.left = `${xCord}px`;
 
-
-
   document.addEventListener('keydown', (event) => {
-    console.log(sessionStorage.getItem("current"))
+    console.log(sessionStorage.getItem("current")) // test code should be commented out
     console.log(sessionStorage.getItem("currentX"))
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
@@ -59,14 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else if (keyName === 'ArrowUp' && screenBounds[currentScreen].right == 'exit') {
       if (parseInt(character.style.left) <= 850) {
-        sessionStorage.setItem("current",currentScreen);
+        sessionStorage.setItem("current",currentScreen);// test code should be commented out
         sessionStorage.setItem("currentX",characterPos.toString());
         console.log(sessionStorage.getItem("current"))
         console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up1;
       }
       else {
-        sessionStorage.setItem("current",currentScreen);
+        sessionStorage.setItem("current",currentScreen);// test code should be commented out
         sessionStorage.setItem("currentX",characterPos.toString())
         console.log(sessionStorage.getItem("current"))
         console.log(sessionStorage.getItem("currentX"))
@@ -132,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentScreenEl.removeChild(character);
       nextScreenEl.appendChild(character);
       character.style.left = sessionStorage.getItem("currentX")+'px'; // Reset character position in new screen
-      console.log("update"+sessionStorage.getItem("currentX"))
+      console.log("update"+sessionStorage.getItem("currentX"))  // test code should be commented out
       currentScreenEl.classList.remove('active');
       nextScreenEl.classList.add('active');
       currentScreen = nextScreen;
