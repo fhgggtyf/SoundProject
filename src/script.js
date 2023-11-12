@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'start-screen': { right: 'main-hall', leftLimit: 1300, rightLimit: 1520 }, // Example limits
     'main-hall': { right: 'hallway', leftLimit: 350, rightLimit: 1300 },
     'hallway': { right: 'exit', up1: 'room1.html', up2: 'room2.html', leftLimit: 350, rightLimit: 1400 },
-    'exit': { right: 'start-screen', leftLimit: 0, rightLimit: 200 }
+    'exit': { right: 'start-screen', leftLimit: 250, rightLimit: 250 }
   };
 
   document.addEventListener('keydown', (event) => {
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
+        character.src = "img/character pngs/right.png";
         characterPos += moveAmount;
         character.style.left = `${characterPos}px`;
         if (characterPos >= screenBounds[currentScreen].rightLimit) {
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else if (keyName === 'ArrowLeft') {
       if (characterPos > screenBounds[currentScreen].leftLimit) {
+        character.src = "img/character pngs/left.png";
         characterPos -= moveAmount;
         character.style.left = `${characterPos}px`;
       }
@@ -49,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var newLeftValue = parseInt(character.style.left) || 0;
 
         if (screenBounds[currentScreen].right == 'hallway') {
-          if(newLeftValue==260){
+          if (newLeftValue == 260) {
             alert();
           }
           else if (newLeftValue == 1000) {
@@ -60,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
         else if (screenBounds[currentScreen].right == 'exit') {
-          if(newLeftValue==460){
+          if (newLeftValue == 460) {
             alert();
           }
           else if (newLeftValue == 1000) {
@@ -69,6 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
           else if (newLeftValue == 1280) {
             alert();
           }
+        }
+        else if (screenBounds[currentScreen].right == 'start-screen') {
+
+          setTimeout(() => {
+            alert('This alert appeared after 0.5 second!');
+          }, 500);
         }
 
       }
