@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const character = document.createElement('img');
   character.id = 'character';
 
+  //sounds
+  const intro = new Audio('../assets/sounds/INTRO.wav');
+  const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
+  const alertAudio3 = new Audio('../assets/sounds/INTRO.wav');
+  const backgroundAudio = new Audio('../assets/sounds/INTRO.wav');
+  let isAudioPlaying=false;
+
   // same, getting the stored x value (in string)
   let xCord=sessionStorage.getItem("currentX");
   if (!xCord) {
@@ -40,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
-
+    if(!isAudioPlaying){
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
         character.src = "img/character pngs/right.png";
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up2;
       }
-    }
+    }}
   });
 
   var observer = new MutationObserver(function (mutations) {
@@ -84,25 +91,61 @@ document.addEventListener('DOMContentLoaded', () => {
         var newLeftValue = parseInt(character.style.left) || 0;
 
         if (screenBounds[currentScreen].right == 'hallway') {
-          if (newLeftValue == 260) {
-            alert();
+          if (newLeftValue == 360) {
+            intro.play()
+            isAudioPlaying = true;
+            intro.onended = () => {
+              console.log('Audio 1 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
           else if (newLeftValue == 1000) {
-            alert();
+            portrait.play()
+            isAudioPlaying = true;
+            portrait.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
           else if (newLeftValue == 1280) {
-            alert();
+            portrait.play()
+            isAudioPlaying = true;
+            portrait.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
         }
         else if (screenBounds[currentScreen].right == 'exit') {
           if (newLeftValue == 460) {
-            alert();
+            portrait.play()
+            isAudioPlaying = true;
+            portrait.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
           else if (newLeftValue == 1000) {
-            alert();
+            portrait.play()
+            isAudioPlaying = true;
+            portrait.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
           else if (newLeftValue == 1280) {
-            alert();
+            portrait.play()
+            isAudioPlaying = true;
+            portrait.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
           }
         }
         else if (screenBounds[currentScreen].right == 'start-screen') {
@@ -138,5 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nextScreenEl.classList.add('active');
       currentScreen = nextScreen;
     }
+    if(currentScreen=='hallway')
+      portrait.play()
   }
 });
