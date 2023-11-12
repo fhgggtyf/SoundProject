@@ -1,8 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let currentScreen = 'start-screen';
+  let currentScreen = sessionStorage.getItem("current");
+  if (!currentScreen) {
+    sessionStorage.setItem('current', 'start-screen');
+    currentScreen = sessionStorage.getItem("current");
+    console.log(sessionStorage.getItem("current"))
+  }
+
+
   const character = document.createElement('img');
   character.id = 'character';
-  character.style.left = '1300px';
+  // character.style.left = '1300px';
+  let xCord=sessionStorage.getItem("currentX");
+  if (!xCord) {
+    sessionStorage.setItem('currentX', '1300');
+    xCord = sessionStorage.getItem("currentX");
+    console.log(sessionStorage.getItem("currentX"))
+  }
+  
+
   character.src = "img/character pngs/right.png";
   document.getElementById(currentScreen).appendChild(character);
 
@@ -12,8 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
     'hallway': { right: 'exit', up1: 'room1.html', up2: 'room2.html', leftLimit: 350, rightLimit: 1400 },
     'exit': { right: 'start-screen', leftLimit: 250, rightLimit: 250 }
   };
+  
+  navigateTo(currentScreen);
+  character.style.left = `${xCord}px`;
+
+
 
   document.addEventListener('keydown', (event) => {
+    console.log(sessionStorage.getItem("current"))
+    console.log(sessionStorage.getItem("currentX"))
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
@@ -24,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
         characterPos += moveAmount;
         character.style.left = `${characterPos}px`;
         if (characterPos >= screenBounds[currentScreen].rightLimit) {
+          sessionStorage.setItem("current",screenBounds[currentScreen].right);
+          sessionStorage.setItem("currentX",screenBounds[screenBounds[currentScreen].right].leftLimit);
           navigateTo(screenBounds[currentScreen].right);
         }
       }
@@ -35,9 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else if (keyName === 'ArrowUp' && screenBounds[currentScreen].right == 'exit') {
       if (parseInt(character.style.left) <= 850) {
+        sessionStorage.setItem("current",currentScreen);
+        sessionStorage.setItem("currentX",characterPos.toString());
+        console.log(sessionStorage.getItem("current"))
+        console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up1;
       }
       else {
+        sessionStorage.setItem("current",currentScreen);
+        sessionStorage.setItem("currentX",characterPos.toString())
+        console.log(sessionStorage.getItem("current"))
+        console.log(sessionStorage.getItem("currentX"))
         window.location.href = screenBounds[currentScreen].up2;
       }
     }
@@ -99,7 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentScreenEl && nextScreenEl) {
       currentScreenEl.removeChild(character);
       nextScreenEl.appendChild(character);
-      character.style.left = '250px'; // Reset character position in new screen
+      character.style.left = sessionStorage.getItem("currentX")+'px'; // Reset character position in new screen
+      console.log("update"+sessionStorage.getItem("currentX"))
       currentScreenEl.classList.remove('active');
       nextScreenEl.classList.add('active');
       currentScreen = nextScreen;

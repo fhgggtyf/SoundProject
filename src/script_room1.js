@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         characterPos += moveAmount;
         character.style.left = `${characterPos}px`;
         character.src = "img/character pngs/right.png";
+      }      
+      else{
+        window.location.href = "index.html";
       }
     } else if (keyName === 'ArrowLeft') {
       if (characterPos > screenBounds[currentScreen].leftLimit) {
