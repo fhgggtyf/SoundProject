@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   let currentScreen = sessionStorage.getItem("current"); // get the current page
 
-  // if it is empty then give it initial value, this value is used only in cover so it is determined.
+  // if it is empty then give it initial value, this init value is used only in cover so it is determined.
   if (!currentScreen) {
     sessionStorage.setItem('current', 'start-screen');
     currentScreen = sessionStorage.getItem("current");
