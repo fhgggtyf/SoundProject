@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'creepy';
+  src: url("fonts/creepy.otf") format("opentype"),
+        url('fonts/creepy.ttf') format("truetype");
+}
+
+.title{
+  font-family: 'creepy', sans-serif;
+  font-size: 340px;
+  color: white;
+}
+
 .character {
   width: 50px;
   height: 50px;
