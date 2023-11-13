@@ -27,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
-    // if(background.paused())
-    //   background.play();
+    if(background.paused)
+      background.play();
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
       footsteps.play();
