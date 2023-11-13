@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //const door1 = new Audio('../assets/sounds/ENTER_HALL.wav');
   const notend = new Audio('../assets/sounds/NOTEND.wav');
   const end = new Audio('../assets/sounds/END.wav');
+  const end2 = new Audio('../assets/sounds/END2.wav');
   const background = new Audio('../assets/sounds/BACKGROUNDS.wav');
   let room1check=false;
   let room2check=false;
@@ -212,6 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
             }
+        }
+        else if (screenBounds[currentScreen].right == 'start-screen') {
+
+          setTimeout(() => {
+            end2.play();
+          }, 500);
         }
       }
     });
