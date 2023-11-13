@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
-
+    if(!isAudioPlaying){
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
         characterPos += moveAmount;
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         character.src = "img/character pngs/left.png";
       }
     }
-  });
+  }});
 
   var observer = new MutationObserver(function (mutations) {
     // Check each mutation in the list

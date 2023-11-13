@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const start = new Audio('../assets/sounds/START.wav');
   const intro = new Audio('../assets/sounds/INTRO.wav');
   const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
+  const door = new Audio('../assets/sounds/CREAKY_DOOR.wav');
   const hall1 = new Audio('../assets/sounds/ENTER_HALL.wav');
   const door1 = new Audio('../assets/sounds/DOOR1.wav');
   const door2 = new Audio('../assets/sounds/DOOR2.wav');
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
           else if (newLeftValue == 1280) {
-            portrait.play()
+            door.play()
             isAudioPlaying = true;
             portrait.onended = () => {
               console.log('Audio 2 finished playing');
