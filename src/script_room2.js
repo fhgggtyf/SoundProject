@@ -60,18 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // The 'style' attribute has changed
         var newLeftValue = parseInt(character.style.left) || 0;
 
-        if (newLeftValue == 310) {
+        if (newLeftValue == 310 && !room2check) {
           footsteps.pause();
       footsteps.currentTime = 0; // Reset audio to start
+
           room2.play()
           isAudioPlaying = true;
           room2.onended = () => {
             console.log('Audio 1 finished playing');
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
+            room2check=true;
           };
         }
-        else if (newLeftValue == 520) {
+        else if (newLeftValue == 520 && !mirrorcheck) {
           footsteps.pause();
       footsteps.currentTime = 0; // Reset audio to start
           mirror.play()
@@ -81,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
             sessionStorage.setItem('mirror','Yes')
+            mirrorcheck=true;
           };
         }
       }
