@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const phonering = new Audio('../assets/sounds/PHONE_RING1.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
   const background = new Audio('../assets/sounds/BACKGROUND_BEDROOM.wav');
+  background.loop=true;
 
   let phonecheck=false;
   let phoneringcheck=false;
@@ -26,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
+    if(background.paused())
+      background.play();
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
       footsteps.play();
