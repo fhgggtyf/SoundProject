@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const footsteps = new Audio('../assets/sounds/FOOTSTEPS.wav');
   footsteps.loop=true;
   const water = new Audio('../assets/sounds/BATHROOM_BACKGROUND.wav');
+  water.loop=true
   const mirror = new Audio('../assets/sounds/MIRROR.wav');
   const room2 = new Audio('../assets/sounds/ROOM2.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
@@ -23,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     const keyName = event.key;
     const moveAmount = 10; // Adjust as needed
+    if(water.paused())
+      water.play();
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
       footsteps.play();
