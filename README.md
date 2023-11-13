@@ -6,7 +6,7 @@ We tried to find a balance between sound, visuals and interactivity, but it was 
 ## Team Members
 - Jiho Choi => Drawing, Script Editing
 - Diana Donatella => Sound Editing, Script Editing
-- Sneheel Sarangi => Coding
+- Sneheel Sarangi => Coding, Sound Editing
 - Jiacheng Xia => Coding, Script Editing
 
 # Process
