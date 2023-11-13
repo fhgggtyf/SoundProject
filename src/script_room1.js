@@ -2,14 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentScreen = 'bedroom';
   const character = document.createElement('img');
   character.id = 'character';
-  character.style.left = '1220px';
+  character.style.left = '1230px';
   character.style.top = '400px';
   character.src = "img/character pngs/left.png";
   let isAudioPlaying=false;
   const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
   const skele = new Audio('../assets/sounds/WARDROBE.wav');
-  const room1 = new Audio('../assets/sounds/ROOM1.wav');
+  const phonering = new Audio('../assets/sounds/PHONE_RING1.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
+
+  let phonecheck=false;
+  let phoneringcheck=false;
+  let skelecheck=false;
   document.getElementById(currentScreen).appendChild(character);
 
   const screenBounds = {
@@ -45,23 +49,36 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mutation.attributeName === 'style') {
         // The 'style' attribute has changed
         var newLeftValue = parseInt(character.style.left) || 0;
-
-        if (newLeftValue == 1210) {
+        if (newLeftValue == 1220 && !phoneringcheck) {
+          phonering.play()
+          isAudioPlaying = true;
+          phonering.onended = () => {
+            console.log('Audio 1 finished playing');
+            isAudioPlaying = false;
+            // Any additional code to run after the audio finishes
+            sessionStorage.setItem('phone','Yes')
+            phoneringcheck=true;
+          };
+        }
+        else if (newLeftValue == 1210 && !phonecheck) {
           phone.play()
           isAudioPlaying = true;
           phone.onended = () => {
             console.log('Audio 1 finished playing');
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
+            sessionStorage.setItem('phone','Yes')
+            phonecheck=false;
           };
         }
-        else if (newLeftValue == 740) {
+        else if (newLeftValue == 740 && !skelecheck) {
           skele.play()
           isAudioPlaying = true;
           skele.onended = () => {
             console.log('Audio 1 finished playing');
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
+            skelecheck=true;
           };
         }
       }

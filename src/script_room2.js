@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Audio 1 finished playing');
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
+            sessionStorage.setItem('mirror','Yes')
           };
         }
       }

@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //sounds
   const start = new Audio('../assets/sounds/START.wav');
   const intro = new Audio('../assets/sounds/INTRO.wav');
+  const footsteps = new Audio('../assets/sounds/FOOTSTEPS.wav');
+  footsteps.loop=true;
   const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
   const door = new Audio('../assets/sounds/CREAKY_DOOR.wav');
   const hall1 = new Audio('../assets/sounds/ENTER_HALL.wav');
@@ -24,15 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
   //const door1 = new Audio('../assets/sounds/ENTER_HALL.wav');
   const notend = new Audio('../assets/sounds/NOTEND.wav');
   const end = new Audio('../assets/sounds/END.wav');
-  const backgroundAudio = new Audio('../assets/sounds/INTRO.wav');
+  const background = new Audio('../assets/sounds/BACKGROUNDS.wav');
+  let room1check=false;
+  let room2check=false;
+  let portraitcheck=false;
+  let introcheck=false;
   let isAudioPlaying=false;
-  let twoclues =0;
 
   const startButton = document.getElementById('startButton');
   startButton.addEventListener('click', () => {
     // Play the audio
     if (currentScreen === 'start-screen') {
       start.play();
+      background.loop = true;
+      background.play()
       isAudioPlaying = true;
       start.onended = () => {
         isAudioPlaying = false;
@@ -72,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
+      footsteps.play()
+
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
         character.src = "img/character pngs/right.png";
@@ -106,7 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }}
   });
-
+  // Keyup event to stop footsteps
+  document.addEventListener('keyup', (event) => {
+    const keyName = event.key;
+    if (keyName === 'ArrowRight' || keyName === 'ArrowLeft' || keyName === 'ArrowUp' || keyName === 'ArrowDown') {
+      footsteps.pause();
+      footsteps.currentTime = 0; // Reset audio to start
+    }
+  });
   var observer = new MutationObserver(function (mutations) {
     // Check each mutation in the list
     mutations.forEach(function (mutation) {
@@ -115,35 +131,32 @@ document.addEventListener('DOMContentLoaded', () => {
         var newLeftValue = parseInt(character.style.left) || 0;
         
         if (screenBounds[currentScreen].right == 'hallway') {
-          if (newLeftValue == 360) {
+          if (newLeftValue == 360 && !introcheck) {
             intro.play()
             isAudioPlaying = true;
             intro.onended = () => {
               console.log('Audio 1 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
+              introcheck=true;
             };
           }
-          else if (newLeftValue == 1000) {
+          else if (newLeftValue == 1000 && !portraitcheck) {
             portrait.play()
             isAudioPlaying = true;
             portrait.onended = () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
+              portraitcheck=true;
             };
           }
           else if (newLeftValue == 1280) {
             door.play()
-            isAudioPlaying = true;
-            portrait.onended = () => {
-              console.log('Audio 2 finished playing');
-              isAudioPlaying = false;
-              // Any additional code to run after the audio finishes
-            };
+            
           }
         }
-        else if (screenBounds[currentScreen].right == 'exit') {
+        else if (screenBounds[currentScreen].right == 'exit' && !room1check) {
           if (newLeftValue == 460) {
             door1.play()
             isAudioPlaying = true;
@@ -151,19 +164,21 @@ document.addEventListener('DOMContentLoaded', () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
+              room1check=true;
             };
           }
-          else if (newLeftValue == 1000) {
+          else if (newLeftValue == 1000 && !room2check) {
             door2.play()
             isAudioPlaying = true;
             door2.onended = () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
+              room2check=true;
             };
           }
           else if (newLeftValue == 1280) {
-            if(twoclues>=2){
+            if((sessionStorage.getItem('phone') && sessionStorage.getItem('mirror'))){
             end.play()
             isAudioPlaying = true;
             end.onended = () => {
@@ -200,12 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function navigateTo(nextScreen) {
     if (nextScreen.startsWith('/')) {
+      door.play()
       window.location.href = nextScreen;
       return;
     }
     else if(nextScreen=='exit')
     {
-      if(twoclues<2)
+      if(!(sessionStorage.getItem('phone') && sessionStorage.getItem('mirror')))
         return;
     }
     const currentScreenEl = document.getElementById(currentScreen);
