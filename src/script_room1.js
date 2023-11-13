@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   character.style.top = '400px';
   character.src = "img/character pngs/left.png";
   let isAudioPlaying=false;
-  const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
+  const phoneringback = new Audio('../assets/sounds/PHONE_RINGING.wav');
   const skele = new Audio('../assets/sounds/WARDROBE.wav');
   const phonering = new Audio('../assets/sounds/PHONE_RING1.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
@@ -58,9 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Any additional code to run after the audio finishes
             sessionStorage.setItem('phone','Yes')
             phoneringcheck=true;
+            phoneringback.play();
           };
         }
         else if (newLeftValue == 1210 && !phonecheck) {
+          phoneringback.pause();
           phone.play()
           isAudioPlaying = true;
           phone.onended = () => {
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isAudioPlaying = false;
             // Any additional code to run after the audio finishes
             sessionStorage.setItem('phone','Yes')
-            phonecheck=false;
+            phonecheck=true;
           };
         }
         else if (newLeftValue == 740 && !skelecheck) {

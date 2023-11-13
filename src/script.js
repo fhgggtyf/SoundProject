@@ -132,6 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (screenBounds[currentScreen].right == 'hallway') {
           if (newLeftValue == 360 && !introcheck) {
+            footsteps.pause();
+            footsteps.currentTime = 0;
             intro.play()
             isAudioPlaying = true;
             intro.onended = () => {
@@ -142,6 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
           else if (newLeftValue == 1000 && !portraitcheck) {
+            footsteps.pause();
+            footsteps.currentTime = 0;
+
             portrait.play()
             isAudioPlaying = true;
             portrait.onended = () => {
@@ -152,12 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
           else if (newLeftValue == 1280) {
+            footsteps.pause();
+            footsteps.currentTime = 0;
             door.play()
             
           }
         }
         else if (screenBounds[currentScreen].right == 'exit' && !room1check) {
           if (newLeftValue == 460) {
+            footsteps.pause();
+            footsteps.currentTime = 0;
             door1.play()
             isAudioPlaying = true;
             door1.onended = () => {
@@ -168,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
           else if (newLeftValue == 1000 && !room2check) {
+            footsteps.pause();
+            footsteps.currentTime = 0;
             door2.play()
             isAudioPlaying = true;
             door2.onended = () => {
@@ -179,7 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           else if (newLeftValue == 1280) {
             if((sessionStorage.getItem('phone') && sessionStorage.getItem('mirror'))){
-            end.play()
+              footsteps.pause();
+              footsteps.currentTime = 0;
+              end.play()
             isAudioPlaying = true;
             end.onended = () => {
               console.log('Audio 2 finished playing');
@@ -188,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
             };
           }
             else{
+              footsteps.pause();
+            footsteps.currentTime = 0;
               notend.play()
             isAudioPlaying = true;
             notend.onended = () => {
