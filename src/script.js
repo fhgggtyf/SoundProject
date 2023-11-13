@@ -213,13 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
             }
         }
-        else if (screenBounds[currentScreen].right == 'start-screen') {
-
-          setTimeout(() => {
-            alert('This alert appeared after 0.5 second!');
-          }, 500);
-        }
-
       }
     });
   });
