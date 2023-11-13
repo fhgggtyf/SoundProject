@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem('current', 'start-screen');
     currentScreen = sessionStorage.getItem("current");
     console.log(sessionStorage.getItem("current"))
+    
   }
 
 
@@ -13,16 +14,34 @@ document.addEventListener('DOMContentLoaded', () => {
   character.id = 'character';
 
   //sounds
+  const start = new Audio('../assets/sounds/START.wav');
   const intro = new Audio('../assets/sounds/INTRO.wav');
   const portrait = new Audio('../assets/sounds/PORTRAIT.wav');
   const hall1 = new Audio('../assets/sounds/ENTER_HALL.wav');
   const door1 = new Audio('../assets/sounds/DOOR1.wav');
   const door2 = new Audio('../assets/sounds/DOOR2.wav');
   //const door1 = new Audio('../assets/sounds/ENTER_HALL.wav');
+  const notend = new Audio('../assets/sounds/NOTEND.wav');
   const end = new Audio('../assets/sounds/END.wav');
   const backgroundAudio = new Audio('../assets/sounds/INTRO.wav');
   let isAudioPlaying=false;
+  let twoclues =0;
 
+  const startButton = document.getElementById('startButton');
+  startButton.addEventListener('click', () => {
+    // Play the audio
+    if (currentScreen === 'start-screen') {
+      start.play();
+      isAudioPlaying = true;
+      start.onended = () => {
+        isAudioPlaying = false;
+        // Additional code that runs after the audio finishes can go here
+      };
+    }
+
+    // Hide the button after it's clicked
+    startButton.style.display = 'none';
+  });
   // same, getting the stored x value (in string)
   let xCord=sessionStorage.getItem("currentX");
   if (!xCord) {
@@ -93,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mutation.attributeName === 'style') {
         // The 'style' attribute has changed
         var newLeftValue = parseInt(character.style.left) || 0;
-
+        
         if (screenBounds[currentScreen].right == 'hallway') {
           if (newLeftValue == 360) {
             intro.play()
@@ -125,32 +144,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else if (screenBounds[currentScreen].right == 'exit') {
           if (newLeftValue == 460) {
-            portrait.play()
+            door1.play()
             isAudioPlaying = true;
-            portrait.onended = () => {
+            door1.onended = () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
             };
           }
           else if (newLeftValue == 1000) {
-            portrait.play()
+            door2.play()
             isAudioPlaying = true;
-            portrait.onended = () => {
+            door2.onended = () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
             };
           }
           else if (newLeftValue == 1280) {
-            portrait.play()
+            if(twoclues>=2){
+            end.play()
             isAudioPlaying = true;
-            portrait.onended = () => {
+            end.onended = () => {
               console.log('Audio 2 finished playing');
               isAudioPlaying = false;
               // Any additional code to run after the audio finishes
             };
           }
+            else{
+              notend.play()
+            isAudioPlaying = true;
+            notend.onended = () => {
+              console.log('Audio 2 finished playing');
+              isAudioPlaying = false;
+              // Any additional code to run after the audio finishes
+            };
+          }
+            }
         }
         else if (screenBounds[currentScreen].right == 'start-screen') {
 
@@ -172,7 +202,11 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = nextScreen;
       return;
     }
-
+    else if(nextScreen=='exit')
+    {
+      if(twoclues<2)
+        return;
+    }
     const currentScreenEl = document.getElementById(currentScreen);
     const nextScreenEl = document.getElementById(nextScreen);
 

@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   character.style.left = '300px';
   character.style.top = '450px';
   character.src = "img/character pngs/right.png";
+  let isAudioPlaying=false;
+  const water = new Audio('../assets/sounds/WATER.wav');
+  const mirror = new Audio('../assets/sounds/MIRROR.wav');
+  const room2 = new Audio('../assets/sounds/ROOM2.wav');
+  const phone = new Audio('../assets/sounds/PHONE.wav');
+
   document.getElementById(currentScreen).appendChild(character);
 
   const screenBounds = {
@@ -42,10 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
         var newLeftValue = parseInt(character.style.left) || 0;
 
         if (newLeftValue == 310) {
-          alert();
+          room2.play()
+          isAudioPlaying = true;
+          room2.onended = () => {
+            console.log('Audio 1 finished playing');
+            isAudioPlaying = false;
+            // Any additional code to run after the audio finishes
+          };
         }
         else if (newLeftValue == 520) {
-          alert();
+          mirror.play()
+          isAudioPlaying = true;
+          mirror.onended = () => {
+            console.log('Audio 1 finished playing');
+            isAudioPlaying = false;
+            // Any additional code to run after the audio finishes
+          };
         }
       }
     });
