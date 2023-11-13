@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
   character.style.top = '450px';
   character.src = "img/character pngs/right.png";
   let isAudioPlaying=false;
-  const water = new Audio('../assets/sounds/WATER.wav');
+  const footsteps = new Audio('../assets/sounds/FOOTSTEPS.wav');
+  footsteps.loop=true;
+  const water = new Audio('../assets/sounds/BATHROOM_BACKGROUND.wav');
   const mirror = new Audio('../assets/sounds/MIRROR.wav');
   const room2 = new Audio('../assets/sounds/ROOM2.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
-
+  let mirrorcheck=false;
+  let room2check=false;
   document.getElementById(currentScreen).appendChild(character);
 
   const screenBounds = {
@@ -22,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
+      footsteps.play();
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
         characterPos += moveAmount;
@@ -40,6 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }});
 
+  // Keyup event to stop footsteps
+  document.addEventListener('keyup', (event) => {
+    const keyName = event.key;
+    if (keyName === 'ArrowRight' || keyName === 'ArrowLeft' || keyName === 'ArrowUp' || keyName === 'ArrowDown') {
+      footsteps.pause();
+      footsteps.currentTime = 0; // Reset audio to start
+    }
+  });
+
   var observer = new MutationObserver(function (mutations) {
     // Check each mutation in the list
     mutations.forEach(function (mutation) {
@@ -48,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         var newLeftValue = parseInt(character.style.left) || 0;
 
         if (newLeftValue == 310) {
+          footsteps.pause();
+      footsteps.currentTime = 0; // Reset audio to start
           room2.play()
           isAudioPlaying = true;
           room2.onended = () => {
@@ -57,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         }
         else if (newLeftValue == 520) {
+          footsteps.pause();
+      footsteps.currentTime = 0; // Reset audio to start
           mirror.play()
           isAudioPlaying = true;
           mirror.onended = () => {

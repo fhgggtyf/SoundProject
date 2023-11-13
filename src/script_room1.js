@@ -6,10 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
   character.style.top = '400px';
   character.src = "img/character pngs/left.png";
   let isAudioPlaying=false;
+  const footsteps = new Audio('../assets/sounds/FOOTSTEPS.wav');
+  footsteps.loop=true;
   const phoneringback = new Audio('../assets/sounds/PHONE_RINGING.wav');
   const skele = new Audio('../assets/sounds/WARDROBE.wav');
   const phonering = new Audio('../assets/sounds/PHONE_RING1.wav');
   const phone = new Audio('../assets/sounds/PHONE.wav');
+  const background = new Audio('../assets/sounds/BACKGROUND_BEDROOM.wav');
 
   let phonecheck=false;
   let phoneringcheck=false;
@@ -25,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const moveAmount = 10; // Adjust as needed
     let characterPos = parseInt(character.style.left, 10);
     if(!isAudioPlaying){
+      footsteps.play();
     if (keyName === 'ArrowRight') {
       if (characterPos < screenBounds[currentScreen].rightLimit) {
         characterPos += moveAmount;
@@ -43,6 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }});
 
+  // Keyup event to stop footsteps
+  document.addEventListener('keyup', (event) => {
+    const keyName = event.key;
+    if (keyName === 'ArrowRight' || keyName === 'ArrowLeft' || keyName === 'ArrowUp' || keyName === 'ArrowDown') {
+      footsteps.pause();
+      footsteps.currentTime = 0; // Reset audio to start
+    }
+  });
+
   var observer = new MutationObserver(function (mutations) {
     // Check each mutation in the list
     mutations.forEach(function (mutation) {
@@ -50,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // The 'style' attribute has changed
         var newLeftValue = parseInt(character.style.left) || 0;
         if (newLeftValue == 1220 && !phoneringcheck) {
+          footsteps.pause();
+            footsteps.currentTime = 0;
           phonering.play()
           isAudioPlaying = true;
           phonering.onended = () => {
@@ -62,6 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         }
         else if (newLeftValue == 1210 && !phonecheck) {
+          footsteps.pause();
+            footsteps.currentTime = 0;
           phoneringback.pause();
           phone.play()
           isAudioPlaying = true;
@@ -74,6 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         }
         else if (newLeftValue == 740 && !skelecheck) {
+          footsteps.pause();
+            footsteps.currentTime = 0;
           skele.play()
           isAudioPlaying = true;
           skele.onended = () => {
