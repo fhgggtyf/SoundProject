@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         }
         else if (newLeftValue == 740 && !skelecheck) {
+          document.getElementById("closet").src="img/bedroom/closet_opened.png";
           footsteps.pause();
             footsteps.currentTime = 0;
           skele.play()
